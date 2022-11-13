@@ -7,8 +7,8 @@ const { getDatabase } = require('../utils/getDatabase');
 const DB_USERS_VERSION = 1;
 
 const baseUser = {
-  version: DB_USERS_VERSION,
   appVersion,
+  version: DB_USERS_VERSION,
 };
 
 async function getById(id) {
@@ -16,7 +16,6 @@ async function getById(id) {
   const user = await db.findOne({ _id: ObjectId(id) });
 
   return user ? {
-    // eslint-disable-next-line no-underscore-dangle
     id: user._id,
     ...user,
   } : null;
@@ -49,9 +48,11 @@ async function create(name, password) {
   ]);
 
   const result = await db.insertOne({
+    ...baseUser,
     name,
     password: hashedPassword,
-    ...baseUser,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
 
   // This result contains insertedId, insertedCount and ops[] as fields that could be used.
