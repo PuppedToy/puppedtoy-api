@@ -51,6 +51,7 @@ async function create(name, password) {
     ...baseUser,
     name,
     password: hashedPassword,
+    scopes: ['user'],
     createdAt: new Date(),
     updatedAt: new Date(),
   });
