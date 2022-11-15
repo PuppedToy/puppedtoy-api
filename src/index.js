@@ -22,6 +22,13 @@ app.use(morgan('combined'));
 
 app.use(router);
 
+// Not found
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Not found',
+  });
+});
+
 // Error handling middleware
 app.use((error, req, res) => {
   console.error(error);

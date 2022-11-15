@@ -36,7 +36,9 @@ async function getById(collection, id) {
 
 async function getAll(collection) {
   const db = await getDatabase(collection);
-  const resources = await db.find({}).toArray();
+  const resources = await db.find({})
+    .sort({ createdAt: -1 })
+    .toArray();
   return resources;
 }
 

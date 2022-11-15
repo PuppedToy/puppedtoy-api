@@ -7,7 +7,7 @@ async function registerController(req, res, next) {
     const result = await usersDb.create(name, password);
     // Get the user scopes from the inserted document
     const { scopes } = result.ops[0];
-    const token = jwt.sign({ id: result.insertedId, scopes });
+    const token = jwt.sign({ id: result.insertedId, scopes, name });
     res.status(201).json({ token });
   } catch (err) {
     next(err);
@@ -22,7 +22,7 @@ async function loginController(req, res, next) {
       res.status(401).json({ message: 'User does not exist or has invalid password' });
       return;
     }
-    const token = jwt.sign({ id: user._id, scopes: user.scopes });
+    const token = jwt.sign({ id: user._id, scopes: user.scopes, name });
     res.status(200).json({ token });
   } catch (err) {
     next(err);
