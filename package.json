@@ -30,7 +30,8 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
     "mongodb": "^4.11.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
