@@ -33,6 +33,7 @@ function start() {
     debugError('Stable diffusion is already running');
   }
 }
+start();
 
 function end() {
   if (stableDiffusion) {
