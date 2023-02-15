@@ -8,9 +8,8 @@ const router = express.Router();
 router.get('/', controller.listAllResourcesController);
 router.get('/:collection', controller.listResourcesController);
 router.get('/:collection/:id', controller.getResourceController);
-router.use(checkScopesMiddleware('owner'));
-router.post('/:collection', controller.createResourceController);
-router.patch('/:collection/:id', controller.updateResourceController);
-router.delete('/:collection/:id', controller.deleteResourceController);
+router.post('/:collection', checkScopesMiddleware('owner'), controller.createResourceController);
+router.patch('/:collection/:id', checkScopesMiddleware('owner'), controller.updateResourceController);
+router.delete('/:collection/:id', checkScopesMiddleware('owner'), controller.deleteResourceController);
 
 module.exports = router;

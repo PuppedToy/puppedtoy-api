@@ -11,8 +11,12 @@ const logger = debug('puppedtoy:server');
 logger.log = console.log.bind(console);
 
 const router = require('./routes');
+const { initChat } = require('./utils/chat');
 
 const app = express();
+// eslint-disable-next-line import/order
+const server = require('http').createServer(app);
+
 const port = process.env.PORT || 3000;
 
 app.use(helmet());
@@ -43,6 +47,7 @@ app.use((error, req, res) => {
   res.status(500).send(response);
 });
 
-app.listen(port, () => {
+initChat(server);
+server.listen(port, () => {
   logger(`Started on port ${port}`);
 });

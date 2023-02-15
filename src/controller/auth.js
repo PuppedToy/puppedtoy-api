@@ -3,10 +3,11 @@ const jwt = require('../utils/jwt');
 
 async function registerController(req, res, next) {
   const { name, password } = req.body;
+  console.log(name, password);
   try {
     const result = await usersDb.create(name, password);
     // Get the user scopes from the inserted document
-    const { scopes } = result.ops[0];
+    const { scopes } = await usersDb.getById(result.insertedId);
     const token = jwt.sign({ id: result.insertedId, scopes, name });
     res.status(201).json({ token });
   } catch (err) {
